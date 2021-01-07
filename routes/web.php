@@ -16,5 +16,10 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index');
+Route::get('/admin', 'App\Http\Controllers\AdminController@index');
+
 Route::get('/login', 'App\Http\Controllers\LoginController@index');
+Route::get("/logout", "App\Http\Controllers\LoginController@logout")->middleware(["LoggedIn"]);
+
+Route::post('/login', 'App\Http\Controllers\LoginController@login');
 

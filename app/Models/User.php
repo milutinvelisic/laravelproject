@@ -1,43 +1,26 @@
 <?php
 
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User
 {
-    use HasFactory, Notifiable;
+    public function getUsernameAndPassword($firstName, $password)
+    {
+        return \DB::table("users as u")
+            ->join("roles as r", "u.idRole", "=", "r.idRole")
+            ->where([
+                ["firstName", "=", $firstName],
+                ["passwordHash", "=", md5($password)]
+            ])->first();
+    }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function registerUser($crUsername, $crEmail, $crPassword)
+    {
+        return \DB::table('users')
+            ->insert([
+                ["username" => $crUsername, "email" => $crEmail, "password" => md5($crPassword), "originalPassword" => $crPassword, "active" => 0, "idRole" => 2]
+            ]);
+    }
 }

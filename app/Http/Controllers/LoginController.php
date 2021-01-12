@@ -34,7 +34,7 @@ class LoginController extends Controller
 
                 $request->session()->put("user", $user);
 
-                    if($request->session()->get("user")->idRole == 1){
+                    if($request->session()->get("user")->roleId == 1){
                         return redirect("/admin")->with("msg", "You logged in successfully!");
                     }else{
                         return redirect("/home")->with("msg", "You logged in successfully!");
@@ -45,7 +45,7 @@ class LoginController extends Controller
             }
         } catch (\Exception $ex) {
             \Log::warning($ex->getMessage());
-            return redirect("/login")->with("msg", "Something went wrong, please try again!");
+            return redirect("/login")->with("msg", "Wrong username and/or password!");
         }
     }
 

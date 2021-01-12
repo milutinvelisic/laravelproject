@@ -14,7 +14,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-
+Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::get('/home', 'App\Http\Controllers\HomeController@index');
 Route::get('/admin', 'App\Http\Controllers\AdminController@index');
 

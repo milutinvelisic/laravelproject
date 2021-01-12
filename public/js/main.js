@@ -29,14 +29,16 @@ if (url.indexOf("login") != -1) {
 
         self.firstName = ko.observable("").extend({
             required: true,
-            minLength: 2,
-            // validation: {
-            //    message: "Please enter at least 2 characters",
-            //    validator: function(value) {
-            //       return value.length >= 2;
-            //    }
-            // }
+            minLength: 2
         });
+        self.mobile = ko.observable("").extend({
+            required: true,
+            minLength: 2
+        });
+        self.lastName = ko.observable("").extend({
+            required : true,
+            minLength: 2
+        })
         self.emailAddress = ko.observable("").extend({
             required: true,
             email: true
@@ -72,4 +74,78 @@ if (url.indexOf("login") != -1) {
 
     const contactForm = document.querySelector("#addContactForm");
     ko.applyBindings(new CreateAccountViewModel(), contactForm);
+
+    let formNumberDd = document.getElementById("formNumber");
+    formNumberDd.addEventListener("change", function (){
+        let formNumberDdValue = formNumberDd.options[formNumberDd.selectedIndex].value;
+        let html = ''
+        console.log(formNumberDdValue)
+        for (let i = 0; i < formNumberDdValue; i++) {
+            html += `<div class="mb-5">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="firstName">First Name</label>
+                                <input type="text" data-bind="value: firstName" id="firstName${i+1}" class="form-control" placeholder="Your first name" name="firstName" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" data-bind="value: lastName" id="lastName${i+1}" class="form-control" placeholder="Your last name" name="lastName" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <br/><button type="button" class="mt-2 deleteInfo">Delete${i+1}</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Phone numbers</label>
+                                <input type="text" id="mobile${i+1}" class="form-control" value="Mobile" name="mobile" disabled />
+                            </div>
+                            <div class="form-group col-md-5">
+                                <br/><input type="text" id="mobileValue${i+1}" class="form-control mt-2" placeholder="(555) 121-2121" name="mobileValue" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <br/><button type="button" class="mt-2 deleteNumber" >Delete</button>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <br/><input type="text" id="home${i+1}" class="form-control" value="Home" name="home" disabled />
+                            </div>
+                            <div class="form-group col-md-5">
+                                <br/><input type="text"  id="homeValue${i+1}" class="form-control" placeholder="(555) 121-2121"  name="homeValue" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <br/><button type="button" class="deleteNumber">Delete</button>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <br/><input type="text" id="office${i+1}" class="form-control" value="Office" name="office" disabled />
+                            </div>
+                            <div class="form-group col-md-5">
+                                <br/><input type="text" id="officeValue${i+1}" class="form-control" placeholder="(555) 121-2121" name="officeValue" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <br/><button type="button" class="deleteNumber">Delete</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add number</button>
+                    </div>`
+        }
+
+        document.getElementById("contact-form").innerHTML = html
+
+        if($(".deleteInfo")){
+
+            $(document).on('click', '.deleteInfo', function (e){
+                e.target.parentElement.previousElementSibling.childNodes[3].value = ''
+                e.target.parentElement.previousElementSibling.previousElementSibling.childNodes[3].value = ''
+            })
+        }
+
+        if($(".deleteNumber")){
+
+            $(document).on('click', '.deleteNumber', function (e){
+                e.target.parentElement.previousElementSibling.childNodes[2].value = ''
+            })
+        }
+    })
+
+
 }

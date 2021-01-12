@@ -5,7 +5,7 @@
     <li><a href='{{ url("/home") }}'>Home</a></li>
     <li><a href='{{ url("/logout") }}'>Logout</a></li>
     @endif
-    @if(session()->has("user") && session("user")->idRole == 1)
+    @if(session()->has("user") && session("user")->roleId == 1)
     <li><a href="{{ url("/admin") }}">Admin</a></li>
     @endif
 </ul>

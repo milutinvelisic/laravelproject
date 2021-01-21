@@ -41,11 +41,11 @@ class LoginController extends Controller
                     }
             } else {
                 \Log::warning('Couldnt find user at:' . $_SERVER['REQUEST_URI'] . " at time: " . time());
-                return redirect("/login")->with("msg", "Please try again!");
+                return redirect("/login")->with("msg", "Wrong username and/or password!!");
             }
         } catch (\Exception $ex) {
             \Log::warning($ex->getMessage());
-            return redirect("/login")->with("msg", "Wrong username and/or password!");
+            return redirect("/login")->with("msg", "Server is busy, try again later!");
         }
     }
 

@@ -15,12 +15,4 @@ class User
                 ["passwordHash", "=", md5($password)]
             ])->first();
     }
-
-    public function registerUser($crUsername, $crEmail, $crPassword)
-    {
-        return \DB::table('users')
-            ->insert([
-                ["username" => $crUsername, "email" => $crEmail, "password" => md5($crPassword), "originalPassword" => $crPassword, "active" => 0, "idRole" => 2]
-            ]);
-    }
 }

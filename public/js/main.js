@@ -39,14 +39,18 @@ if (url.indexOf("login") != -1) {
             required : true,
             minLength: 2
         })
-        self.emailAddress = ko.observable("").extend({
-            required: true,
-            email: true
-        });
+        // self.emailAddress = ko.observable("").extend({
+        //     required: true,
+        //     email: true
+        // });
         self.subscriptionType = ko.observable("standard");
         self.hasBeenSubmitted = ko.observable(false);
 
         window.firstName = self.firstName;
+        window.lastName = self.lastName;
+        window.mobile = self.mobile;
+
+
 
         self.handleSubmit = function() {
 
@@ -66,33 +70,34 @@ if (url.indexOf("login") != -1) {
             //
             console.log({
                 firstName: self.firstName(),
-                emailAddress: self.emailAddress(),
+                lastName: self.lastName(),
+                mobile: self.mobile(),
                 subscriptionType: self.subscriptionType(),
             })
         }
     };
 
-    const contactForm = document.querySelector("#addContactForm");
-    ko.applyBindings(new CreateAccountViewModel(), contactForm);
+
+
 
     let formNumberDd = document.getElementById("formNumber");
     formNumberDd.addEventListener("change", function (){
         let formNumberDdValue = formNumberDd.options[formNumberDd.selectedIndex].value;
         let html = ''
-        console.log(formNumberDdValue)
+
         for (let i = 0; i < formNumberDdValue; i++) {
             html += `<div class="mb-5">
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="firstName">First Name</label>
-                                <input type="text" data-bind="value: firstName" id="firstName${i+1}" class="form-control" placeholder="Your first name" name="firstName" />
+                                <input type="text" data-bind="value: firstName" id="firstName${i+1}" class="form-control" placeholder="Your first name" name="firstName${i+1}" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" data-bind="value: lastName" id="lastName${i+1}" class="form-control" placeholder="Your last name" name="lastName" />
+                                <input type="text" data-bind="value: lastName" id="lastName${i+1}" class="form-control" placeholder="Your last name" name="lastName${i+1}" />
                             </div>
                             <div class="form-group col-md-4">
-                                <br/><button type="button" class="mt-2 deleteInfo">Delete${i+1}</button>
+                                <br/><button type="button" class="mt-2 deleteInfo">Delete</button>
                             </div>
                         </div>
                         <div class="form-row">
@@ -101,7 +106,7 @@ if (url.indexOf("login") != -1) {
                                 <input type="text" id="mobile${i+1}" class="form-control" value="Mobile" name="mobile" disabled />
                             </div>
                             <div class="form-group col-md-5">
-                                <br/><input type="text" id="mobileValue${i+1}" class="form-control mt-2" placeholder="(555) 121-2121" name="mobileValue" />
+                                <br/><input type="text" data-bind="value: mobile"  id="mobileValue${i+1}" class="form-control mt-2" placeholder="(555) 121-2121" name="mobileValue${i+1}y" />
                             </div>
                             <div class="form-group col-md-3">
                                 <br/><button type="button" class="mt-2 deleteNumber" >Delete</button>
@@ -110,7 +115,7 @@ if (url.indexOf("login") != -1) {
                                 <br/><input type="text" id="home${i+1}" class="form-control" value="Home" name="home" disabled />
                             </div>
                             <div class="form-group col-md-5">
-                                <br/><input type="text"  id="homeValue${i+1}" class="form-control" placeholder="(555) 121-2121"  name="homeValue" />
+                                <br/><input type="text" id="homeValue${i+1}" class="form-control" placeholder="(555) 121-2121"  name="homeValue" />
                             </div>
                             <div class="form-group col-md-3">
                                 <br/><button type="button" class="deleteNumber">Delete</button>
@@ -131,11 +136,29 @@ if (url.indexOf("login") != -1) {
 
         document.getElementById("contact-form").innerHTML = html
 
+        // Kod za KO js se ovde nalazi jer se u ovom momentu ispisuje forma
+
+        let contactForm = document.querySelector("#addContactForm");
+
+        function clearAndBindFormEvent(){
+            ko.cleanNode(contactForm);
+            ko.applyBindings(new CreateAccountViewModel(), contactForm);
+        }
+        if(document.getElementById("firstName1")){
+
+            document.getElementById("firstName1").value = ''
+        }
+
+        clearAndBindFormEvent()
+
+
         if($(".deleteInfo")){
 
             $(document).on('click', '.deleteInfo', function (e){
                 e.target.parentElement.previousElementSibling.childNodes[3].value = ''
                 e.target.parentElement.previousElementSibling.previousElementSibling.childNodes[3].value = ''
+                // clearAndBindFormEvent()
+                ko.cleanNode(contactForm);
             })
         }
 
@@ -143,6 +166,8 @@ if (url.indexOf("login") != -1) {
 
             $(document).on('click', '.deleteNumber', function (e){
                 e.target.parentElement.previousElementSibling.childNodes[2].value = ''
+                // clearAndBindFormEvent()
+                ko.cleanNode(contactForm);
             })
         }
     })

@@ -21,9 +21,8 @@
     <div id="addContactForm">
         <div class="row d-flex justify-content-around" >
             <div class="col-md-4 d-flex">
-                <form action="{{ url("/login") }}" method="POST" data-bind="submit: handleSubmit" class="bg-white p-5" id="contact-form">
+                <form action="{{ route("insertContact") }}" method="POST" class="bg-white p-5" id="contact-form">
                     @csrf
-
 
                 </form>
 

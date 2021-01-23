@@ -19,7 +19,7 @@ class LoggedIn
         if($request->session()->has("user")){
             return $next($request);
         }else{
-            return redirect("/login")->with("msg", "Middleware loggedIn");
+            return redirect("/login")->with("msg", "You must log in first");
         }
     }
 }

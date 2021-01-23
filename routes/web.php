@@ -15,11 +15,12 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', 'App\Http\Controllers\HomeController@index');
-Route::get('/home', 'App\Http\Controllers\HomeController@index');
-Route::get('/admin', 'App\Http\Controllers\AdminController@index');
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->middleware(["LoggedIn"]);
+Route::get('/admin', 'App\Http\Controllers\AdminController@index')->middleware(["LoggedIn", "IsAdmin"]);
 
 Route::get('/login', 'App\Http\Controllers\LoginController@index');
 Route::get("/logout", "App\Http\Controllers\LoginController@logout")->middleware(["LoggedIn"]);
 
 Route::post('/login', 'App\Http\Controllers\LoginController@login');
+Route::post("/insertContact", 'App\Http\Controllers\ContactController@insertContact')->name("insertContact");
 

@@ -86,15 +86,15 @@ if (url.indexOf("login") != -1) {
         let html = ''
 
         for (let i = 0; i < formNumberDdValue; i++) {
-            html += `<div class="mb-5">
+            html += `<div class="mb-5" id="forma${i+1}">
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="firstName">First Name</label>
-                                <input type="text" data-bind="value: firstName" id="firstName${i+1}" class="form-control" placeholder="Your first name" name="firstName${i+1}" />
+                                <input type="text" id="firstName${i+1}" class="form-control" placeholder="Your first name" name="firstName[]" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" data-bind="value: lastName" id="lastName${i+1}" class="form-control" placeholder="Your last name" name="lastName${i+1}" />
+                                <input type="text" id="lastName${i+1}" class="form-control" placeholder="Your last name" name="lastName[]" />
                             </div>
                             <div class="form-group col-md-4">
                                 <br/><button type="button" class="mt-2 deleteInfo">Delete</button>
@@ -103,34 +103,34 @@ if (url.indexOf("login") != -1) {
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="firstName">Phone numbers</label>
-                                <input type="text" id="mobile${i+1}" class="form-control" value="Mobile" name="mobile" disabled />
+                                <input type="text" id="mobile${i+1}" class="form-control" value="Mobile" name="phoneTypeName[]" />
                             </div>
                             <div class="form-group col-md-5">
-                                <br/><input type="text" data-bind="value: mobile"  id="mobileValue${i+1}" class="form-control mt-2" placeholder="(555) 121-2121" name="mobileValue${i+1}y" />
+                                <br/><input type="text" id="mobileValue${i+1}" class="form-control mt-2" placeholder="(555) 121-2121" name="phoneNumber[]" />
                             </div>
                             <div class="form-group col-md-3">
                                 <br/><button type="button" class="mt-2 deleteNumber" >Delete</button>
                             </div>
                             <div class="form-group col-md-4">
-                                <br/><input type="text" id="home${i+1}" class="form-control" value="Home" name="home" disabled />
+                                <br/><input type="text" id="home${i+1}" class="form-control" value="Home" name="phoneTypeName[]" />
                             </div>
                             <div class="form-group col-md-5">
-                                <br/><input type="text" id="homeValue${i+1}" class="form-control" placeholder="(555) 121-2121"  name="homeValue" />
+                                <br/><input type="text" id="homeValue${i+1}" class="form-control" placeholder="(555) 121-2121"  name="phoneNumber[]" />
                             </div>
                             <div class="form-group col-md-3">
                                 <br/><button type="button" class="deleteNumber">Delete</button>
                             </div>
                             <div class="form-group col-md-4">
-                                <br/><input type="text" id="office${i+1}" class="form-control" value="Office" name="office" disabled />
+                                <br/><input type="text" id="office${i+1}" class="form-control" value="Office" name="phoneTypeName[]" />
                             </div>
                             <div class="form-group col-md-5">
-                                <br/><input type="text" id="officeValue${i+1}" class="form-control" placeholder="(555) 121-2121" name="officeValue" />
+                                <br/><input type="text" id="officeValue${i+1}" class="form-control" placeholder="(555) 121-2121" name="phoneNumber[]" />
                             </div>
                             <div class="form-group col-md-3">
                                 <br/><button type="button" class="deleteNumber">Delete</button>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add number</button>
+                        <input type="submit" value="Add Number" name="contactSubmit" class="btn btn-primary"/>
                     </div>`
         }
 
@@ -158,7 +158,7 @@ if (url.indexOf("login") != -1) {
                 e.target.parentElement.previousElementSibling.childNodes[3].value = ''
                 e.target.parentElement.previousElementSibling.previousElementSibling.childNodes[3].value = ''
                 // clearAndBindFormEvent()
-                ko.cleanNode(contactForm);
+                // ko.cleanNode(contactForm);
             })
         }
 
@@ -167,7 +167,7 @@ if (url.indexOf("login") != -1) {
             $(document).on('click', '.deleteNumber', function (e){
                 e.target.parentElement.previousElementSibling.childNodes[2].value = ''
                 // clearAndBindFormEvent()
-                ko.cleanNode(contactForm);
+                // ko.cleanNode(contactForm);
             })
         }
     })
